@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>/// YOUTUBE_DL_TERMINAL ///</title>
+
+    <style>
+
+        /* Estilo Base HACKER */
+
+        body {
+
+            background-color: #0d0d0d;
+
+            color: #00ff41; /* Verde Matrix */
+
+            font-family: 'Courier New', Courier, monospace;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            height: 100vh;
+
+            margin: 0;
+
+            overflow: hidden;
+
+        }
+
+
+
+        /* Contenedor principal */
+
+        .terminal {
+
+            width: 80%;
+
+            max-width: 700px;
+
+            border: 2px solid #00ff41;
+
+            padding: 20px;
+
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+
+            position: relative;
+
+        }
+
+
+
+        /* Efecto de escaneo (línea que baja) */
+
+        .terminal::before {
+
+            content: " ";
+
+            display: block;
+
+            position: absolute;
+
+            top: 0;
+
+            left: 0;
+
+            bottom: 0;
+
+            right: 0;
+
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+
+            z-index: 2;
+
+            background-size: 100% 2px, 3px 100%;
+
+            pointer-events: none;
+
+        }
+
+
+
+        h1 {
+
+            text-shadow: 2px 2px #003300;
+
+            border-bottom: 1px dashed #00ff41;
+
+            padding-bottom: 10px;
+
+        }
+
+
+
+        .input-group {
+
+            margin-top: 20px;
+
+            display: flex;
+
+            gap: 10px;
+
+        }
+
+
+
+        /* Inputs estilo consola */
+
+        input[type="text"] {
+
+            background: #000;
+
+            border: 1px solid #00ff41;
+
+            color: #00ff41;
+
+            padding: 10px;
+
+            flex-grow: 1;
+
+            font-family: inherit;
+
+            outline: none;
+
+        }
+
+
+
+        button {
+
+            background: #00ff41;
+
+            color: #000;
+
+            border: none;
+
+            padding: 10px 20px;
+
+            font-weight: bold;
+
+            font-family: inherit;
+
+            cursor: pointer;
+
+            transition: all 0.3s;
+
+        }
+
+
+
+        button:hover {
+
+            background: #000;
+
+            color: #00ff41;
+
+            border: 1px solid #00ff41;
+
+        }
+
+
+
+        /* Área de logs (consola de salida) */
+
+        #console-output {
+
+            margin-top: 20px;
+
+            height: 150px;
+
+            border: 1px solid #003300;
+
+            padding: 10px;
+
+            font-size: 0.9em;
+
+            overflow-y: auto;
+
+            white-space: pre-wrap;
+
+        }
+
+
+
+        .cursor {
+
+            animation: blink 1s step-end infinite;
+
+        }
+
+
+
+        @keyframes blink { 50% { opacity: 0; } }
+
+        
+
+        a.download-btn {
+
+            display: inline-block;
+
+            margin-top: 10px;
+
+            color: #000;
+
+            background: #00ff41;
+
+            text-decoration: none;
+
+            padding: 5px 10px;
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+
+    <div class="terminal">
+
+        <h1>> INICIAR_PROTOCOLO_DESCARGA_v1.0</h1>
+
+        <p>Introduce el objetivo (URL de YouTube):</p>
+
+        
+
+        <div class="input-group">
+
+            <span style="padding-top: 10px;">root@user:~$</span>
+
+            <input type="text" id="urlInput" placeholder="https://www.youtube.com/watch?v=..." autofocus>
+
+            <button onclick="hackVideo()">EJECUTAR</button>
+
+        </div>
+
+
+
+        <div id="console-output">
+
+            > Esperando input del usuario...<span class="cursor">_</span>
+
+        </div>
+
+    </div>
+
+
+
+    <script>
+
+    const logArea = document.getElementById('console-output');
+
+function log(message) {
+    logArea.innerHTML = logArea.innerHTML.replace('<span class="cursor">_</span>', '');
+    logArea.innerHTML += `\n> ${message}`;
+    logArea.innerHTML += '<span class="cursor">_</span>';
+    logArea.scrollTop = logArea.scrollHeight;
+}
+
+async function hackVideo() {
+    // 1. Obtener la URL del input
+    const urlInput = document.getElementById('urlInput');
+    const url = urlInput.value.trim();
+
+    if(!url) {
+        log("ERROR: Introduce una URL válida.");
+        return;
+    }
+
+    log("Iniciando secuencia de extracción...");
+    console.log("Enviando petición al backend para:", url);
+
+    try {
+        // 2. Llamada al servidor Python
+        const response = await fetch('http://127.0.0.1:5000/hack_video', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ url: url })
+        });
+
+        console.log("Respuesta recibida del servidor, estado:", response.status);
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(errorText);
+        }
+
+        const data = await response.json();
+        console.log("Datos del video recibidos:", data);
+
+        if(data.status === 'SUCCESS') {
+            log("ACCESO CONCEDIDO.");
+            log(`Pista: ${data.title}`);
+            
+            // 3. Crear el link al proxy de descarga
+            const proxyUrl = `http://127.0.0.1:5000/proxy_download?url=${encodeURIComponent(data.download_link)}&title=${encodeURIComponent(data.title)}`;
+            
+            const link = `<br><br>[ <a href="${proxyUrl}" class="download-btn">DESCARGAR MP3</a> ]`;
+            
+            // Insertar el botón en la consola visual
+            logArea.innerHTML = logArea.innerHTML.replace('<span class="cursor">_</span>', link + '<span class="cursor">_</span>');
+            urlInput.value = ""; 
+        } else {
+            log(`ERROR DEL SISTEMA: ${data.error}`);
+        }
+
+    } catch (error) {
+        console.error("Error detallado:", error);
+        log("FALLO CRÍTICO: Revisa la consola de desarrollador (F12).");
+    }
+}
+
+    </script>
+
+</body>
+
+</html>
