@@ -20,7 +20,7 @@ El proyecto está organizado de la siguiente manera para mantener la integridad 
 
 ```text
 DESCARGA-YT/
-├── .vscode/            # Configuración del editor
+
 ├── templates/          # Almacén de archivos HTML
 ├── venv/               # Entorno virtual (Cerebro aislado)
 ├── app.py              # Motor principal (Backend Flask)
