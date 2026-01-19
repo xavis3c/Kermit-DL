@@ -1,21 +1,20 @@
 # Kermit-DL
 
-```markdown
-# 🛠️ TERMINAL DE EXTRACCIÓN YOUTUBE v1.0
 
-![Interfaz del Proyecto](descarga-yt.jpg)
+#  TERMINAL DE EXTRACCIÓN YOUTUBE v1.0
+
+![Interfaz del Proyecto](https://github.com/xavis3c/Kermit-DL/blob/main/descarga-yt.jpg)
 
 > **ESTADO DEL SISTEMA:** OPERATIVO
 > **ENFOQUE:** Ciberseguridad Educativa / Aprendizaje de APIs
 
-Este proyecto es una herramienta de extracción de audio (MP3) de alta velocidad con una interfaz inspirada 
-en las terminales clásicas de "Hacker Ético". 
+Este proyecto es una herramienta de extracción de audio (MP3) de alta velocidad. 
 Ha sido diseñado para demostrar cómo interactuar con motores de búsqueda de video (`yt-dlp`) y 
 crear puentes de comunicación (Proxies) entre servidores Python y navegadores web.
 
 ---
 
-## 🛰️ ARQUITECTURA DEL SISTEMA
+##  ARQUITECTURA DEL SISTEMA
 
 El proyecto está organizado de la siguiente manera para mantener la integridad de los datos:
 
@@ -32,7 +31,7 @@ DESCARGA-YT/
 
 ---
 
-## 🚀 GUÍA DE INSTALACIÓN PARA AGENTES (USUARIOS)
+##  GUÍA DE INSTALACIÓN PARA AGENTES (USUARIOS)
 
 Si eres un usuario nuevo y quieres ejecutar esta terminal en tu computadora, sigue estos pasos:
 
@@ -74,7 +73,7 @@ pip install -r requirements.txt
 
 ---
 
-## ⚡ MODO DE USO
+##  MODO DE USO
 
 1. **Encender el Servidor:**
 Con el entorno activo, lanza el motor principal:
@@ -107,7 +106,7 @@ Este software ha sido creado con fines estrictamente **educativos y de aprendiza
 
 ---
 
-## 🛠️ TECNOLOGÍAS UTILIZADAS
+##  TECNOLOGÍAS UTILIZADAS
 
 * **Python + Flask:** El corazón que procesa las solicitudes.
 * **YT-DLP:** El potente motor de extracción de metadatos.
