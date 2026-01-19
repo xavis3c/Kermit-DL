@@ -10,7 +10,7 @@ CORS(app) # Esto evita que el navegador bloquee la conexión
 def index():
     return "Servidor API Hacker Online"
 
-# RUTA 1: Para obtener la información del audio
+# RUTA 1: Obtener la información del audio
 @app.route('/hack_video', methods=['POST'])
 def hack_video():
     data = request.get_json()
@@ -25,7 +25,7 @@ def hack_video():
         'no_warnings': True,
         'noplaylist': True, # Evita que intente analizar toda una lista si es un mix
         'extract_flat': False, # Obliga a ir directo al grano
-        'skip_download': True, # IMPORTANTE: Solo queremos el link, NO bajarlo al servidor
+        'skip_download': True, # Link, NO bajarlo al servidor
     }
 
     try:
@@ -39,7 +39,7 @@ def hack_video():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-# RUTA 2: Para descargar el archivo real
+# RUTA 2: Descargar el archivo real
 @app.route('/proxy_download')
 def proxy_download():
     video_url = request.args.get('url')
@@ -62,5 +62,5 @@ def proxy_download():
     )
 
 if __name__ == '__main__':
-    # Importante: Puerto 5000
+    # Puerto 5000
     app.run(debug=True, port=5000)
