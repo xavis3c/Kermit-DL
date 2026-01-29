@@ -35,7 +35,7 @@ DESCARGA-YT/
 
 Si eres un usuario nuevo y quieres ejecutar esta terminal en tu computadora, sigue estos pasos:
 
-### 1. Preparar el Terreno (Python)
+### 1. Preparar el Terreno (Python).
 
 Asegúrate de tener Python instalado en tu sistema.
 
